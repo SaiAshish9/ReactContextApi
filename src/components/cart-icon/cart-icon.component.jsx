@@ -14,14 +14,14 @@ import './cart-icon.styles.scss';
 
 
 
-const CartIcon = ( {itemCount }) =>{
+const CartIcon = ( ) =>{
 
-const {toggleHidden}=useContext(CartContext)
+const {toggleHidden,cartItemsCount}=useContext(CartContext)
 
    return (
   <div className='cart-icon' onClick={toggleHidden}>
     <ShoppingIcon className='shopping-icon' />
-    <span className='item-count'>{itemCount}</span>
+    <span className='item-count'>{cartItemsCount}</span>
   </div>
 );
 }
@@ -29,9 +29,8 @@ const {toggleHidden}=useContext(CartContext)
 //   toggleCartHidden: () => dispatch(toggleCartHidden())
 // });
 
-const mapStateToProps = createStructuredSelector({
-  itemCount: selectCartItemsCount
-});
+// const mapStateToProps = createStructuredSelector({
+//   itemCount: selectCartItemsCount
+// });
 
-export default connect(
-  mapStateToProps)(CartIcon);
+export default CartIcon

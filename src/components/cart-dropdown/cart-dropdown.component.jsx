@@ -14,10 +14,10 @@ import {CartContext} from '../../providers/cart'
 
 import './cart-dropdown.styles.scss';
 
-const CartDropdown = ({  history, dispatch }) => {
+const CartDropdown = ({  history }) => {
 
 
-const { cartItems } =useContext(CartContext)
+const { cartItems,toggleHidden } =useContext(CartContext)
 
   return(
 
@@ -35,7 +35,7 @@ const { cartItems } =useContext(CartContext)
       <CustomButton
         onClick={() => {
           history.push('/checkout');
-          dispatch(toggleCartHidden());
+      toggleHidden()
         }}
       >
         GO TO CHECKOUT

@@ -1,6 +1,6 @@
 import React,{createContext,useState,useEffect} from 'react'
 
-import {addItemToCart,removeItemToCart} from './cart.utils'
+import {addItemToCart,removeItemFromCart,clearItemFromCart,getCartItemsCount,getTotalCost} from './cart.utils'
 
  export const CartContext=createContext({
   hidden:true,
@@ -8,8 +8,9 @@ import {addItemToCart,removeItemToCart} from './cart.utils'
   cartItems:[],
   addItem:()=>{},
   removeItem:()=>{},
-  clearItemFromCart:()=>{},
-  cartItemsCount:0
+  clearItem:()=>{},
+  cartItemsCount:0,
+  total:0
 })
 
  const CartProvider =({children})=>{
@@ -17,12 +18,25 @@ import {addItemToCart,removeItemToCart} from './cart.utils'
   const [hidden,setHidden] =useState(true)
   const [cartItems,setCartItems]=useState([])
   const [cartItemsCount,setItemsCount]=useState(0)
+  const [total,setTotalCost]=useState(0)
 
 
   const addItem=item =>  setCartItems(addItemToCart(cartItems,item))
 
+  const removeItem =item => setCartItems(removeItemFromCart(cartItems,item))
+
+  const clearItem =item => setCartItems(clearItemFromCart(cartItems,item))
+
+
   const toggleHidden=()=>setHidden(!hidden)
 
+
+// whenever cartItemsCount  updates
+
+useEffect(()=>{
+  setItemsCount(getCartItemsCount(cartItems))
+  setTotalCost(getTotalCost(cartItems))
+},[cartItems])
 
 
   return (
@@ -32,6 +46,9 @@ import {addItemToCart,removeItemToCart} from './cart.utils'
       toggleHidden,
       cartItems,
       addItem,
+      removeItem,
+      clearItem,
+      total,
       cartItemsCount
     }}
 
